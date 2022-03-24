@@ -1,23 +1,46 @@
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import icon from "../public/fa-solid_pencil-ruler.svg";
 
 const Navitems = () => {
+  const router = useRouter();
+  const getSVGClassName = (path) =>
+    router.asPath === path ? "" : "opacity-40";
+  const getTextClassName = (path) => (router.asPath === path ? "" : "invisible");
   return (
     <>
       <p className="text-[13px] font-bold leading-[15px] tracking-tighter bg-gradient-to-r from-[#FF5C01] to-[#FFD25F] text-transparent bg-clip-text">
-        LOGO
+        <Link href="/">LOGO</Link>
       </p>
       <div className="flex flex-col gap-[22px] items-center">
-        <div className="flex flex-col">
-          <Image src={icon} className="w-6 h-6" />
-          <p className="text-xs leading-[18px] tracking-wide">Home</p>
-        </div>
-        <div className="flex flex-col">
-          <Image src={icon} className="w-6 h-6" />
-          <p className="text-xs leading-[18px] tracking-wide">Tags</p>
-        </div>
+        <Link href="/">
+          <div className="flex flex-col cursor-pointer">
+            <Image src={icon} className={`w-6 h-6 ${getSVGClassName("/")}`} />
+            <p
+              className={`text-xs leading-[18px] tracking-wide ${getTextClassName(
+                "/"
+              )}`}
+            >
+              Home
+            </p>
+          </div>
+        </Link>
+        <Link href="/tag">
+          <div className="flex flex-col cursor-pointer">
+            <Image
+              src={icon}
+              className={`w-6 h-6 ${getSVGClassName("/tag")}`}
+            />
+            <p
+              className={`text-xs leading-[18px] tracking-wide ${getTextClassName(
+                "/tag"
+              )}`}
+            >
+              Tags
+            </p>
+          </div>
+        </Link>
       </div>
     </>
   );

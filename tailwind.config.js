@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         home: "#181818",
-        sidebar: "#1B1B1B",
+        light: "#1B1B1B",
         default: "#121212",
         tutor: "#FF9B33",
       },

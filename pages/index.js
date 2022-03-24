@@ -3,12 +3,15 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import Slider from "../components/Slider";
 import Profile from "../components/Profile";
+import useWindowWidth from "../hooks/useWindowWidth";
 
-export default function Home() {
+export default function Home({ profiles }) {
+  const profileDatas = profiles.data;
+  const windowWidth = useWindowWidth();
   return (
     <>
-      <div className="grid grid-flow-col auto-cols-min">
-        <div className="bg-sidebar w-20 h-screen">
+      <div className="flex">
+        <div className="bg-light w-20 h-screen">
           <div className="absolute flex flex-col gap-[43px] max-w-fit top-[37px] left-6">
             <Navitems />
           </div>
@@ -30,7 +33,16 @@ export default function Home() {
             <Button text={"SEARCH"} />
           </section>
         </div>
+        {windowWidth >= 1440 ? <Profile profileDatas={profileDatas} /> : ""}
       </div>
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await fetch(
+    "https://avl-frontend-exam.herokuapp.com/api/users/all?page=1&pageSize=10"
+  );
+  const profiles = await res.json();
+  return { props: { profiles } };
+};
