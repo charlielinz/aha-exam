@@ -5,9 +5,24 @@ import icon from "../public/fa-solid_pencil-ruler.svg";
 
 const Navitems = () => {
   const router = useRouter();
-  const getSVGClassName = (path) =>
-    router.asPath === path ? "" : "opacity-40";
-  const getTextClassName = (path) => (router.asPath === path ? "" : "invisible");
+  const getSVGClassName = (path) => {
+    if (router.asPath === path) {
+      return "";
+    } else if (router.asPath === "/result" && path === "/") {
+      return "";
+    } else {
+      return "opacity-40";
+    }
+  };
+  const getTextClassName = (path) => {
+    if (router.asPath === path) {
+      return "";
+    } else if (router.asPath === "/result" && path === "/") {
+      return "";
+    } else {
+      return "invisible";
+    }
+  };
   return (
     <>
       <p className="text-[13px] font-bold leading-[15px] tracking-tighter bg-gradient-to-r from-[#FF5C01] to-[#FFD25F] text-transparent bg-clip-text">
