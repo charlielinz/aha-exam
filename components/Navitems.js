@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import icon from "../public/fa-solid_pencil-ruler.svg";
 
 const Navitems = () => {

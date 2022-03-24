@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -6,9 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundColor: {
+      colors: {
         home: "#181818",
         sidebar: "#1B1B1B",
+        default: "#121212",
+        tutor: "#FF9B33",
       },
     },
     fontFamily: {
