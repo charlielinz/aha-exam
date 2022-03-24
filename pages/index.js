@@ -14,7 +14,6 @@ const Home = () => {
       `https://avl-frontend-exam.herokuapp.com/api/users/all?page=1&pageSize=10&keyword=${keyword}`
     );
     const searchResults = await res.json();
-    console.log(searchResults);
   };
   const [users, setUsers] = useState(() => []);
   useEffect(async () => {
