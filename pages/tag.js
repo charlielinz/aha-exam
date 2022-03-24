@@ -1,6 +1,6 @@
 import Navitems from "../components/Navitems";
 
-const tag = () => {
+const Tag = () => {
   return (
     <>
       <div className="bg-light w-20 h-screen">
@@ -12,4 +12,4 @@ const tag = () => {
   );
 };
 
-export default tag;
+export default Tag;
