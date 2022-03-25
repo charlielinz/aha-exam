@@ -26,12 +26,18 @@ const Navitems = () => {
   return (
     <>
       <p className="text-[13px] font-bold leading-[15px] tracking-tighter bg-gradient-to-r from-[#FF5C01] to-[#FFD25F] text-transparent bg-clip-text">
-        <Link href="/">LOGO</Link>
+        <Link href="/" passHref>
+          LOGO
+        </Link>
       </p>
       <div className="flex flex-col gap-[22px] items-center">
-        <Link href="/">
+        <Link href="/" passHref>
           <div className="flex flex-col cursor-pointer">
-            <Image src={icon} className={`w-6 h-6 ${getSVGClassName("/")}`} />
+            <Image
+              src={icon}
+              alt="icon"
+              className={`w-6 h-6 ${getSVGClassName("/")}`}
+            />
             <p
               className={`text-xs leading-[18px] tracking-wide ${getTextClassName(
                 "/"
@@ -41,10 +47,11 @@ const Navitems = () => {
             </p>
           </div>
         </Link>
-        <Link href="/tag">
+        <Link href="/tag" passHref>
           <div className="flex flex-col cursor-pointer">
             <Image
               src={icon}
+              alt="icon"
               className={`w-6 h-6 ${getSVGClassName("/tag")}`}
             />
             <p

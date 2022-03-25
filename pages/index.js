@@ -11,17 +11,18 @@ const Home = () => {
   const search = async (e) => {
     e.preventDefault();
     const keyword = `keyword=${e.target.keyword.value}`;
-    const res = await fetch(
-      `/api/users?${keyword}`
-    );
+    const res = await fetch(`/api/users?${keyword}`);
     const searchResults = await res.json();
     router.push(`/result?${keyword}`);
   };
   const [users, setUsers] = useState(() => []);
-  useEffect(async () => {
-    const res = await fetch("/api/users/");
-    const users = await res.json();
-    setUsers(users.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/users/");
+      const users = await res.json();
+      setUsers(users.data);
+    };
+    fetchData();
   }, [setUsers]);
   return (
     <>

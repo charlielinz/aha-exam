@@ -1,4 +1,4 @@
-const usersHandler = async (req, res) => {
+const handler = async (req, res) => {
   const url =
     "https://avl-frontend-exam.herokuapp.com/api/users/all" +
     "?" +
@@ -8,4 +8,4 @@ const usersHandler = async (req, res) => {
   res.send(users);
 };
 
-export default usersHandler;
+export default handler;
