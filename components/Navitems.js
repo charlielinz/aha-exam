@@ -8,7 +8,7 @@ const Navitems = () => {
   const getSVGClassName = (path) => {
     if (router.asPath === path) {
       return "";
-    } else if (router.asPath === "/result" && path === "/") {
+    } else if (router.asPath.includes("/result") && path === "/") {
       return "";
     } else {
       return "opacity-40";
@@ -17,7 +17,7 @@ const Navitems = () => {
   const getTextClassName = (path) => {
     if (router.asPath === path) {
       return "";
-    } else if (router.asPath === "/result" && path === "/") {
+    } else if (router.asPath.includes("/result") && path === "/") {
       return "";
     } else {
       return "invisible";

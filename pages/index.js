@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import Navitems from "../components/Navitems";
 import Slider from "../components/Slider";
 import Sidebar from "../components/Sidebar";
@@ -7,20 +7,22 @@ import useWindowWidth from "../hooks/useWindowWidth";
 
 const Home = () => {
   const windowWidth = useWindowWidth();
+  const router = useRouter();
   const search = async (e) => {
     e.preventDefault();
-    const keyword = e.target.keyword.value;
+    const keyword = `keyword=${e.target.keyword.value}`;
     const res = await fetch(
-      `https://avl-frontend-exam.herokuapp.com/api/users/all?page=1&pageSize=10&keyword=${keyword}`
+      `/api/users?${keyword}`
     );
     const searchResults = await res.json();
+    router.push(`/result?${keyword}`);
   };
   const [users, setUsers] = useState(() => []);
   useEffect(async () => {
-    const res = await fetch("/api/users");
+    const res = await fetch("/api/users/");
     const users = await res.json();
     setUsers(users.data);
-  });
+  }, [setUsers]);
   return (
     <>
       <div className="flex h-screen">
@@ -57,7 +59,7 @@ const Home = () => {
               type="submit"
               className="w-[335px] bg-white hover:bg-default rounded py-[13px] px-4 hover:border-[1px] hover:border-solid hover:border-white text-default hover:text-white font-bold text-sm leading-[14px] text-center"
             >
-              <Link href="/result">SEARCH</Link>
+              SEARCH
             </button>
           </section>
         </form>
