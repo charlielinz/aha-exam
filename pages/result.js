@@ -17,7 +17,7 @@ const Result = () => {
       setUsers(users.data);
     };
     fetchData();
-  }, [setUsers]);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       const keyword = `keyword=${router.query.keyword}`;
@@ -26,7 +26,7 @@ const Result = () => {
       setResults(results.data);
     };
     fetchData();
-  }, [setResults, router.query.keyword]);
+  }, [router.query.keyword]);
   return (
     <div className="flex h-screen">
       <div className="bg-light w-20">

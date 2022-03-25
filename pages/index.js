@@ -11,8 +11,6 @@ const Home = () => {
   const search = async (e) => {
     e.preventDefault();
     const keyword = `keyword=${e.target.keyword.value}`;
-    const res = await fetch(`/api/users?${keyword}`);
-    const searchResults = await res.json();
     router.push(`/result?${keyword}`);
   };
   const [users, setUsers] = useState(() => []);
@@ -23,7 +21,7 @@ const Home = () => {
       setUsers(users.data);
     };
     fetchData();
-  }, [setUsers]);
+  }, []);
   return (
     <>
       <div className="flex h-screen">
