@@ -11,16 +11,14 @@ const Profile = ({ users }) => {
         return (user) => user.isFollowing == true;
     }
   };
-  const getUsers = () => [
-    ...users.filter(getFilterFunc(isToggle)),
-  ];
+  const getUsers = () => [...users.filter(getFilterFunc(isToggle))];
 
   return (
     <div className="w-[375px] bg-light">
-      <section className="sticky top-0 z-10 grid grid-cols-2 pt-8 bg-light">
+      <section className="sticky top-0 z-10 grid grid-cols-2 bg-light pt-8">
         <button
           onClick={() => setIsToggle(true)}
-          className={`pb-3 border-b-2 border-solid text-center text-base font-bold tracking-[0.15px]
+          className={`border-b-2 border-solid pb-3 text-center text-base font-bold tracking-[0.15px]
           ${
             isToggle
               ? "border-white"
@@ -31,7 +29,7 @@ const Profile = ({ users }) => {
         </button>
         <button
           onClick={() => setIsToggle(false)}
-          className={`pb-3 border-b-2 border-solid text-center text-base font-bold tracking-[0.15px]
+          className={`border-b-2 border-solid pb-3 text-center text-base font-bold tracking-[0.15px]
           ${
             isToggle
               ? "border-[#1F1F1F] text-[#929292] opacity-[87%]"
@@ -43,18 +41,18 @@ const Profile = ({ users }) => {
       </section>
       <section className="flex flex-col gap-4 py-8 px-4">
         {getUsers().map((user, index) => (
-          <div className="flex gap-4 items-center" key={index}>
-            <div className="w-10 h-10 border-[1px] border-white rounded-[5px]">
+          <div className="flex items-center gap-4" key={index}>
+            <div className="h-10 w-10 rounded-[5px] border-[1px] border-white">
               {/* <Image src={user.avater} width={40} height={40} /> */}
             </div>
             <div>
               <p className="tracking-[0.15px]">{user.name}</p>
-              <p className="opacity-50 text-sm leading-[21px] tracking-[0.25px]">
+              <p className="text-sm leading-[21px] tracking-[0.25px] opacity-50">
                 @{user.username}
               </p>
             </div>
             <div
-              className={`ml-auto py-2 px-2.5 text-xs leading-[12px] rounded-[20px] ${
+              className={`ml-auto rounded-[20px] py-2 px-2.5 text-xs leading-[12px] ${
                 user.isFollowing
                   ? "bg-white text-default"
                   : "border-[1px] border-white"

@@ -23,41 +23,43 @@ const Result = () => {
   }, []);
   useEffect(() => {
     const fetchData = async () => {
+      const pageSize = router.query.pageSize;
       const keyword = router.query.keyword;
-      const res = await fetch(`/api/users/keyword=${keyword}`);
+      const res = await fetch(
+        `/api/users/page=1&pageSize=${pageSize}&keyword=${keyword}`
+      );
       const results = await res.json();
       setResults(results.data);
     };
     fetchData();
   }, [router.query.keyword]);
-  console.log(results)
   return (
     <div className="flex h-screen">
-      <div className="bg-light w-20">
-        <div className="absolute flex flex-col gap-[43px] max-w-fit top-[37px] left-6">
+      <div className="w-20 bg-light">
+        <div className="absolute top-[37px] left-6 flex max-w-fit flex-col gap-[43px]">
           <Navitems />
         </div>
       </div>
-      <div className="relative mx-auto mt-[92px] px-8 overflow-auto">
-        <p className="sticky top-0 bg-home pb-3 mb-3 text-3xl leading-[45px] tracking-[0.25px]">
-          <span className="absolute z-10 -left-8 cursor-pointer">
+      <div className="relative mx-auto mt-[92px] overflow-auto px-8">
+        <p className="sticky top-0 mb-3 bg-home pb-3 text-3xl leading-[45px] tracking-[0.25px]">
+          <span className="absolute -left-8 z-10 cursor-pointer">
             <Link href="/" passHref>
               <Image src={arrowLeft} width={13} height={21.7} />
             </Link>
           </span>
           <span>Results</span>
         </p>
-        <div className="grid grid-cols-3 gap-[34px] min-w-[725px]">
+        <div className="grid min-w-[725px] grid-cols-3 gap-[34px]">
           {results.length ? (
             results.map((result, index) => (
               <div key={index}>
-                <div className="w-[219px] h-[146px] bg-white mb-3">
+                <div className="mb-3 h-[146px] w-[219px] bg-white">
                   {/* <Image src={result.avatar} /> */}
                 </div>
                 <p className="max-w-[150px] truncate text-[14.9px] leading-[22.35px] tracking-[0.14px]">
                   {result.name}
                 </p>
-                <p className="space-x text-[#B2B2B2] text-[11.17px] leading-[16.76px] tracking-[0.37px]">
+                <p className="space-x text-[11.17px] leading-[16.76px] tracking-[0.37px] text-[#B2B2B2]">
                   by {result.username}
                 </p>
               </div>
