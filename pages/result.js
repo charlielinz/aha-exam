@@ -23,11 +23,9 @@ const Result = () => {
   }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const pageSize = router.query.pageSize;
-      const keyword = router.query.keyword;
-      const res = await fetch(
-        `/api/users/page=1&pageSize=${pageSize}&keyword=${keyword}`
-      );
+      const queryString = new URLSearchParams({ ...router.query, page: 1 });
+      const url = `/api/users?${queryString}`;
+      const res = await fetch(url);
       const results = await res.json();
       setResults(results.data);
     };
@@ -49,7 +47,7 @@ const Result = () => {
           </span>
           <span>Results</span>
         </p>
-        <div className="grid min-w-[725px] grid-cols-3 gap-[34px]">
+        <div className="grid min-w-[725px] grid-cols-3 gap-[34px] pb-12">
           {results.length ? (
             results.map((result, index) => (
               <div key={index}>

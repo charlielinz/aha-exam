@@ -5,17 +5,54 @@ import Sidebar from "../components/Sidebar";
 import useWindowWidth from "../hooks/useWindowWidth";
 
 const Home = () => {
-  const windowWidth = useWindowWidth();
+  const [sliderValue, setSliderValue] = useState(0);
+  const getAdjustedValue = (value) => {
+    if (0 <= value && value < 6) {
+      return 0;
+    } else if (6 <= value && value < 18) {
+      return 12;
+    } else if (18 <= value && value < 30) {
+      return 24;
+    } else if (30 <= value && value < 42) {
+      return 36;
+    } else if (42 <= value && value <= 55) {
+      return 48;
+    } else if (55 <= value && value <= 63) {
+      return 63;
+    }
+  };
+  const handleOnChange = (e) => {
+    setSliderValue(e.target.value);
+  };
+  const handleOnMouseUp = (e) => {
+    setSliderValue(getAdjustedValue(e.target.value));
+  };
   const router = useRouter();
   const [keyword, setKeyword] = useState(() => "");
-  const [pageSize, setPageSize] = useState(3);
-  const handleSliderChange = (e) => {
-    e.preventDefault();
-    setPageSize(e.target.value);
+  const getPageSize = (sliderValue) => {
+    if (0 <= sliderValue && sliderValue < 6) {
+      return 3;
+    } else if (6 <= sliderValue && sliderValue < 18) {
+      return 6;
+    } else if (18 <= sliderValue && sliderValue < 30) {
+      return 9;
+    } else if (30 <= sliderValue && sliderValue < 42) {
+      return 12;
+    } else if (42 <= sliderValue && sliderValue <= 55) {
+      return 15;
+    } else if (55 <= sliderValue && sliderValue <= 63) {
+      return 50;
+    }
   };
   const search = async (e) => {
     e.preventDefault();
-    router.push(`/result?page=1&pageSize=${pageSize}&keyword=${keyword}`);
+    const queryString = new URLSearchParams({
+      page: 1,
+      pageSize: getPageSize(sliderValue),
+      keyword,
+    });
+    const url = `/results?${queryString}`;
+    router.push(url);
   };
   const [users, setUsers] = useState(() => []);
   useEffect(() => {
@@ -26,6 +63,7 @@ const Home = () => {
     };
     fetchData();
   }, []);
+  const windowWidth = useWindowWidth();
   return (
     <>
       <div className="flex h-screen">
@@ -52,18 +90,29 @@ const Home = () => {
             <p className="text-2xl leading-9"># Of Results Per Page</p>
             <p className="space-x-[10px]">
               <span className="text-5xl font-bold leading-normal">
-                {pageSize}
+                {getPageSize(sliderValue)}
               </span>
               <span className="text-base leading-normal">results</span>
             </p>
-            <input
-              type="range"
-              defaultValue={3}
-              min={3}
-              max={50}
-              onChange={(e) => handleSliderChange(e)}
-              className="relative z-10 h-2 w-[100%] rounded-full"
-            ></input>
+            <div className="flex flex-col gap-[18px]">
+              <input
+                type="range"
+                value={sliderValue}
+                min={0}
+                max={63}
+                onMouseUp={(e) => handleOnMouseUp(e)}
+                onChange={(e) => handleOnChange(e)}
+                className="relative z-10 h-2 w-[100%] cursor-pointer rounded-full bg-white bg-opacity-50"
+              ></input>
+              <ul className="-ml-0.5 flex gap-[115px]">
+                <li className="w-5 text-center">3</li>
+                <li className="w-5 text-center">6</li>
+                <li className="w-5 text-center">9</li>
+                <li className="w-5 text-center">12</li>
+                <li className="w-5 text-center">15</li>
+                <li className="ml-auto w-5 text-center">50</li>
+              </ul>
+            </div>
           </section>
           <section className="mt-auto">
             <button
