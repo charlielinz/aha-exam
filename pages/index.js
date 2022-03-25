@@ -8,10 +8,10 @@ import useWindowWidth from "../hooks/useWindowWidth";
 const Home = () => {
   const windowWidth = useWindowWidth();
   const router = useRouter();
+  const [keyword, setKeyword] = useState(() => "");
   const search = async (e) => {
     e.preventDefault();
-    const keyword = `keyword=${e.target.keyword.value}`;
-    router.push(`/result?${keyword}`);
+    router.push(`/result?keyword=${keyword}`);
   };
   const [users, setUsers] = useState(() => []);
   useEffect(() => {
@@ -39,8 +39,7 @@ const Home = () => {
             <input
               placeholder="Keyword"
               type="text"
-              id="keyword"
-              name="keyword"
+              onChange={(e)=>setKeyword(e.target.value)}
               required
               className="box-border w-[725px] h-[60px] bg-default rounded-md pl-[18px] border-[3px] border-solid border-white focus:border-tutor focus:outline-none border-opacity-50 placeholder:text-[14px] placeholder:leading-[21px]"
             ></input>
