@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Navitems from "../components/Navitems";
+import NavitemsMobile from "../components/NavitemsMobile";
 import Sidebar from "../components/Sidebar";
 import useWindowWidth from "../hooks/useWindowWidth";
 
@@ -51,7 +53,7 @@ const Home = () => {
       pageSize: getPageSize(sliderValue),
       keyword,
     });
-    const url = `/results?${queryString}`;
+    const url = `/result?${queryString}`;
     router.push(url);
   };
   const [users, setUsers] = useState(() => []);
@@ -64,26 +66,34 @@ const Home = () => {
     fetchData();
   }, []);
   const windowWidth = useWindowWidth();
+  // absolute top-[37px] left-6
   return (
     <>
-      <div className="flex h-screen">
-        <div className="w-20 bg-light">
-          <div className="absolute top-[37px] left-6 flex max-w-fit flex-col gap-[43px]">
+      <div className="mx-5 flex h-screen flex-col sm:mx-0 sm:flex-row">
+        <div className="hidden w-20 shrink-0 bg-light sm:block">
+          <div className="ml-6 mt-[37px] flex max-w-fit flex-col gap-[43px]">
             <Navitems />
           </div>
         </div>
+        <div className="mx-auto w-[335px] sm:hidden">
+          <p className="flex h-[70px] items-center bg-gradient-to-r from-[#FF5C01] to-[#FFD25F] bg-clip-text text-[13px] font-bold leading-[15px] tracking-tighter text-transparent">
+            <Link href="/" passHref>
+              LOGO
+            </Link>
+          </p>
+        </div>
         <form
           onSubmit={search}
-          className="mx-auto mt-[34px] mb-[87px] flex max-w-[725px] flex-col gap-[30px]"
+          className="mx-auto mb-[87px] flex max-w-[725px] flex-col gap-[30px] sm:mt-[34px]"
         >
           <section>
-            <p className="my-5 text-2xl leading-9">Search</p>
+            <p className="mb-5 text-2xl leading-9 sm:my-5">Search</p>
             <input
               placeholder="Keyword"
               type="text"
               onChange={(e) => setKeyword(e.target.value)}
               required
-              className="box-border h-[60px] w-[725px] rounded-md border-[3px] border-solid border-white border-opacity-50 bg-default pl-[18px] placeholder:text-[14px] placeholder:leading-[21px] focus:border-tutor focus:outline-none"
+              className="box-border h-[60px] w-full rounded-md border-[3px] border-solid border-white border-opacity-50 bg-default pl-[18px] placeholder:text-[14px] placeholder:leading-[21px] focus:border-tutor focus:outline-none sm:w-[375px] md:w-[500px] lg:w-[725px]"
             ></input>
           </section>
           <section className="flex flex-col gap-5 border-y-[1px] border-white border-opacity-10 py-[30px]">
@@ -104,7 +114,7 @@ const Home = () => {
                 onChange={(e) => handleOnChange(e)}
                 className="relative z-10 h-2 w-[100%] cursor-pointer rounded-full bg-white bg-opacity-50"
               ></input>
-              <ul className="-ml-0.5 flex gap-[115px]">
+              <ul className="-ml-0.5 flex gap-[40px] sm:gap-[45px] md:gap-[70px] lg:gap-[115px]">
                 <li className="w-5 text-center">3</li>
                 <li className="w-5 text-center">6</li>
                 <li className="w-5 text-center">9</li>
@@ -114,7 +124,7 @@ const Home = () => {
               </ul>
             </div>
           </section>
-          <section className="mt-auto">
+          <section className="mx-auto mt-auto sm:mx-0">
             <button
               type="submit"
               className="w-[335px] rounded bg-white py-[13px] px-4 text-center text-sm font-bold leading-[14px] text-default hover:border-[1px] hover:border-solid hover:border-white hover:bg-default hover:text-white"
@@ -123,9 +133,13 @@ const Home = () => {
             </button>
           </section>
         </form>
-        <div className="h-screen overflow-auto">
+
+        <div className="overflow-auto sm:h-screen">
           {windowWidth >= 1440 ? <Sidebar users={users} /> : ""}
         </div>
+      </div>
+      <div className="absolute bottom-0 block w-full sm:hidden bg-[#181818] bg-opacity-20 shadow-[0px_0.5px_0px_rgba(0,0,0,0.8)] backdrop-blur-[54px]">
+        <NavitemsMobile />
       </div>
     </>
   );

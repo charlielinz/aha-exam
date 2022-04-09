@@ -32,26 +32,34 @@ const Result = () => {
     fetchData();
   }, [router.query.keyword]);
   return (
-    <div className="flex h-screen">
-      <div className="w-20 bg-light">
+    <div className="flex flex-col sm:flex-row h-screen">
+      <div className="hidden shrink-0 w-20 bg-light sm:block">
         <div className="absolute top-[37px] left-6 flex max-w-fit flex-col gap-[43px]">
           <Navitems />
         </div>
       </div>
-      <div className="relative mx-auto mt-[92px] overflow-auto px-8">
+      <div className="sm:hidden flex mx-auto w-full px-8 pt-4 pb-8 gap-5 text-2xl leading-9">
+          <span className="pt-0.5 cursor-pointer">
+            <Link href="/" passHref>
+              <Image src={arrowLeft} width={13} height={21.7} />
+            </Link>
+          </span>
+          <p>Home Page</p>
+        </div>
+      <div className="relative mx-auto w-full sm:mt-[92px] sm:overflow-auto px-8">
         <p className="sticky top-0 mb-3 bg-home pb-3 text-3xl leading-[45px] tracking-[0.25px]">
-          <span className="absolute -left-8 z-10 cursor-pointer">
+          <span className="hidden sm:block absolute -left-8 z-10 cursor-pointer">
             <Link href="/" passHref>
               <Image src={arrowLeft} width={13} height={21.7} />
             </Link>
           </span>
           <span>Results</span>
         </p>
-        <div className="grid min-w-[725px] grid-cols-3 gap-[34px] pb-12">
+        <div className="grid md:min-w-[500px] lg:min-w-[725px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[34px] pb-12">
           {results.length ? (
             results.map((result, index) => (
               <div key={index}>
-                <div className="mb-3 h-[146px] w-[219px] bg-white">
+                <div className="mb-3 h-[146px] w-full sm:w-[219px] bg-white">
                   {/* <Image src={result.avatar} /> */}
                 </div>
                 <p className="max-w-[150px] truncate text-[14.9px] leading-[22.35px] tracking-[0.14px]">
